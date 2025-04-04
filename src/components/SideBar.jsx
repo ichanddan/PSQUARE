@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./sidebar.css";
+import { ChartNoAxesColumnIncreasing, LogOut, Sparkles, UserPlus, UsersRound } from "lucide-react";
 
 const Sidebar = () => {
   return (
@@ -17,7 +18,7 @@ const Sidebar = () => {
         <ul className="nav-list">
           <li className="nav-item active">
             <Link to="/candidates" className="nav-link">
-              <span className="icon">👥</span>
+              <span className="icon"><UserPlus size={15} /></span>
               <span className="text">Candidates</span>
             </Link>
           </li>
@@ -29,19 +30,19 @@ const Sidebar = () => {
         <ul className="nav-list">
           <li className="nav-item">
             <Link to="/employees" className="nav-link">
-              <span className="icon">👤</span>
+              <span className="icon"><UsersRound size={15} /></span>
               <span className="text">Employees</span>
             </Link>
           </li>
           <li className="nav-item">
             <Link to="/attendance" className="nav-link">
-              <span className="icon">📊</span>
+              <span className="icon"><ChartNoAxesColumnIncreasing size={15} /></span>
               <span className="text">Attendance</span>
             </Link>
           </li>
           <li className="nav-item">
             <Link to="/leaves" className="nav-link">
-              <span className="icon">🗓️</span>
+              <span className="icon"><Sparkles size={15} /></span>
               <span className="text">Leaves</span>
             </Link>
           </li>
@@ -54,7 +55,7 @@ const Sidebar = () => {
 
       <div className="sidebar-footer">
         <Link to="/logout" className="logout-link">
-          <span className="icon">🚪</span>
+          <span className="icon"><LogOut  size={15}/></span>
           <span className="text">Logout</span>
         </Link>
       </div>
