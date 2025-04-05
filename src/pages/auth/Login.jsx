@@ -6,9 +6,12 @@ import { Eye, EyeOff } from "lucide-react";
 import Rectangle from "../../assets/Rectangle.png";
 import { API } from "../../services";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/slices/authSlice";
 
 export default function Login() {
   const route = useNavigate();
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [formData, setFormData] = useState({
@@ -32,6 +35,7 @@ export default function Login() {
     await API.Login(formData, "Login Successful", "Login...")
       .then((res) => {
         if (res.data) {
+          dispatch(login({ ...res.data }));
           setFormData({
             email: "",
             password: "",

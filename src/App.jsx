@@ -5,22 +5,30 @@ import Signup from "./pages/auth/Signup";
 import Candidates from "./pages/candidates/Candidates";
 import Employees from "./pages/employees/Employees";
 import Home from "./pages/home/home";
+import { persistor, store } from "./redux/store";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
   const NotFound = () => <h1>404 - Page Not Found</h1>;
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/candidates" element={<Candidates />} /> {/* 404 Page */}
-        <Route path="/employees" element={<Employees />} /> {/* 404 Page */}
-        <Route path="*" element={<NotFound />} /> {/* 404 Page */}
-      </Routes>
-      <Toaster position="bottom-center" reverseOrder={false} />
-    </Router>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/candidates" element={<Candidates />} />{" "}
+            {/* 404 Page */}
+            <Route path="/employees" element={<Employees />} /> {/* 404 Page */}
+            <Route path="*" element={<NotFound />} /> {/* 404 Page */}
+          </Routes>
+          <Toaster position="bottom-center" reverseOrder={false} />
+        </Router>
+      </PersistGate>
+    </Provider>
   );
 }
 
