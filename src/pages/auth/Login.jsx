@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import "./auth.css"; 
+import "./auth.css";
 import { Eye, EyeOff } from "lucide-react";
 import Rectangle from "../../assets/Rectangle.png";
-
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -16,6 +19,14 @@ export default function Login() {
 
   const handleDotClick = (index) => {
     setCurrentSlide(index);
+  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
   };
 
   return (
@@ -69,7 +80,7 @@ export default function Login() {
           <div className="form-container">
             <h1>Welcome Back</h1>
 
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="email">
                   Email Address<span className="required">*</span>
@@ -79,6 +90,9 @@ export default function Login() {
                   id="email"
                   placeholder="Email Address"
                   required
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  name="email"
                 />
               </div>
 
@@ -92,6 +106,9 @@ export default function Login() {
                     id="password"
                     placeholder="Password"
                     required
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    name="password"
                   />
                   <button
                     type="button"
