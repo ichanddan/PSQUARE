@@ -148,7 +148,7 @@ export default function Signup() {
             </form>
 
             <div className="login-link">
-              Already have an account? <a href="#">Login</a>
+              Already have an account? <a href="/login">Login</a>
             </div>
           </div>
         </div>

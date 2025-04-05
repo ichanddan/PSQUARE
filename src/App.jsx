@@ -12,8 +12,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/candidates" element={<Candidates />} /> {/* 404 Page */}
         <Route path="/employees" element={<Employees />} /> {/* 404 Page */}
         <Route path="*" element={<NotFound />} /> {/* 404 Page */}
