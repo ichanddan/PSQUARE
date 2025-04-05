@@ -8,6 +8,7 @@ import Home from "./pages/home/home";
 import { persistor, store } from "./redux/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import Attendance from "./pages/attendance/Attendance";
 
 function App() {
   const NotFound = () => <h1>404 - Page Not Found</h1>;
@@ -23,6 +24,8 @@ function App() {
             <Route path="/candidates" element={<Candidates />} />{" "}
             {/* 404 Page */}
             <Route path="/employees" element={<Employees />} /> {/* 404 Page */}
+            <Route path="/attendance" element={<Attendance />} /> {/* 404 Page */}
+            <Route path="/leaves" element={<Attendance />} /> {/* 404 Page */}
             <Route path="*" element={<NotFound />} /> {/* 404 Page */}
           </Routes>
           <Toaster position="bottom-center" reverseOrder={false} />

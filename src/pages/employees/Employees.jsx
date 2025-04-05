@@ -45,7 +45,7 @@ export default function Employees() {
               onChange={(e) => setPositionFilter(e.target.value)}
             >
               <option value="">Position</option>
-              <option value="Designer">Designer</option>
+              <option value="Intern">Intern</option>
               <option value="Developer">Developer</option>
               <option value="Manager">Manager</option>
             </select>
