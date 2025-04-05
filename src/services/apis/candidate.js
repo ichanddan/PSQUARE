@@ -13,4 +13,8 @@ export const Candidate = {
     });
     return responseHandler(api_call, toast_success, toast_loading);
   },
+  getAll: ( toast_success = false, toast_loading = false) => {
+    const api_call = axiosApi.get("/candidate/get-all");
+    return responseHandler(api_call, toast_success, toast_loading);
+  },
 };

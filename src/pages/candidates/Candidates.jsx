@@ -1,59 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Dashboard from "../../components/Dashboard";
-import { useState } from "react";
-import "./candidates.css";
-import { Search } from "lucide-react";
+import { API } from "../../services";
 import AddCandidateFormModal from "./_components/AddCandidate";
+import "./candidates.css";
 
 export default function Candidates() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [candidates] = useState([
-    {
-      id: "01",
-      name: "Jane Copper",
-      email: "jane.copper@example.com",
-      phone: "(704) 555-0127",
-      position: "Designer Intern",
-      status: "New",
-      experience: "0",
-    },
-    {
-      id: "02",
-      name: "Janney Wilson",
-      email: "janney.wilson@example.com",
-      phone: "(252) 555-0126",
-      position: "Senior Developer",
-      status: "New",
-      experience: "1+",
-    },
-    {
-      id: "03",
-      name: "Guy Hawkins",
-      email: "kenzi.lawson@example.com",
-      phone: "(907) 555-0101",
-      position: "Human Resource Manager",
-      status: "New",
-      experience: "10+",
-    },
-    {
-      id: "04",
-      name: "Arlene McCoy",
-      email: "arlene.mccoy@example.com",
-      phone: "(302) 555-0107",
-      position: "Full Time Designer",
-      status: "Selected",
-      experience: "5+",
-    },
-    {
-      id: "05",
-      name: "Leslie Alexander",
-      email: "willie.jennings@example.com",
-      phone: "(207) 555-0119",
-      position: "Full Time Developer",
-      status: "Rejected",
-      experience: "0",
-    },
-  ]);
+  const [candidates, setCandidate] = useState([]);
+  const [statusFilter, setStatusFilter] = useState("");
+  const [positionFilter, setPositionFilter] = useState("");
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -61,24 +16,61 @@ export default function Candidates() {
     setSearchTerm(e.target.value);
   };
 
+  const filteredCandidates = candidates.filter((candidate) => {
+    const matchesSearch =
+      candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      candidate.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      candidate.status.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesStatus =
+      !statusFilter ||
+      candidate.status.toLowerCase() === statusFilter.toLowerCase();
+
+    const matchesPosition =
+      !positionFilter ||
+      candidate.position.toLowerCase() === positionFilter.toLowerCase();
+
+    return matchesSearch && matchesStatus && matchesPosition;
+  });
+
+  const getAllCandidate = async () => {
+    await API.getAll()
+      .then((res) => {
+        setCandidate(res.data);
+      })
+      .catch((e) => console.log(e));
+  };
+  useEffect(() => {
+    getAllCandidate();
+  }, []);
+
   return (
     <Dashboard className="candidates-container">
       <div className="candidates-header">
         <div className="filter-section">
           <div className="filter-dropdown">
-            <select className="filter-select">
+            <select
+              className="filter-select"
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+            >
               <option value="">Status</option>
-              <option value="new">New</option>
-              <option value="selected">Selected</option>
-              <option value="rejected">Rejected</option>
+              <option value="Applied">Applied</option>
+              <option value="Interviewing">Interviewing</option>
+              <option value="Hired">Hired</option>
+              <option value="Rejected">Rejected</option>
             </select>
           </div>
           <div className="filter-dropdown">
-            <select className="filter-select">
+            <select
+              className="filter-select"
+              value={positionFilter}
+              onChange={(e) => setPositionFilter(e.target.value)}
+            >
               <option value="">Position</option>
-              <option value="designer">Designer</option>
-              <option value="developer">Developer</option>
-              <option value="manager">Manager</option>
+              <option value="Designer">Designer</option>
+              <option value="Developer">Developer</option>
+              <option value="Manager">Manager</option>
             </select>
           </div>
         </div>
@@ -114,19 +106,21 @@ export default function Candidates() {
             </tr>
           </thead>
           <tbody>
-            {candidates.map((candidate) => (
-              <tr key={candidate.id}>
-                <td>{candidate.id}</td>
+            {filteredCandidates.map((candidate, index) => (
+              <tr key={candidate._id}>
+                <td>{index + 1}</td>
                 <td>{candidate.name}</td>
                 <td>{candidate.email}</td>
                 <td>{candidate.phone}</td>
                 <td>{candidate.position}</td>
                 <td>
-                  <div
-                    className={`status-dropdown status-${candidate.status.toLowerCase()}`}
-                  >
-                    <span>{candidate.status}</span>
-                    <span className="dropdown-arrow">▼</span>
+                  <div className="filter-dropdown">
+                    <select className="filter-select">
+                      <option value="Applied">Applied</option>
+                      <option value="Interviewing">Interviewing</option>
+                      <option value="Hired">Hired</option>
+                      <option value="Rejected">Rejected</option>
+                    </select>
                   </div>
                 </td>
                 <td>{candidate.experience}</td>
