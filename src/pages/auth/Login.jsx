@@ -4,8 +4,11 @@ import { useState } from "react";
 import "./auth.css";
 import { Eye, EyeOff } from "lucide-react";
 import Rectangle from "../../assets/Rectangle.png";
+import { API } from "../../services";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const route = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [formData, setFormData] = useState({
@@ -26,7 +29,17 @@ export default function Login() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    await API.Login(formData, "Login Successful", "Login...")
+      .then((res) => {
+        if (res.data) {
+          setFormData({
+            email: "",
+            password: "",
+          });
+          route("/");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
