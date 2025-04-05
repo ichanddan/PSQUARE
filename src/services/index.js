@@ -10,5 +10,4 @@ import { AuthApi } from './apis/auth';
 
 export const API = {
   ...AuthApi,
- 
 };

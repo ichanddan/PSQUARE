@@ -2,11 +2,20 @@ import { useState } from "react";
 import "./auth.css";
 import { Eye, EyeOff } from "lucide-react";
 import Rectangle from "../../assets/Rectangle.png";
+import { API } from "../../services";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
+  const route = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [formData, setFormData] = useState({
+    fullname: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -18,6 +27,26 @@ export default function Signup() {
 
   const handleDotClick = (index) => {
     setCurrentSlide(index);
+  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await API.Signup(formData, "Registration Successful", "Registering...")
+      .then((res) => {
+        if (res.data) {
+          setFormData({
+            fullname: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          });
+          route("/login");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -71,7 +100,7 @@ export default function Signup() {
           <div className="form-container">
             <h1>Welcome to Dashboard</h1>
 
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="fullname">
                   Full name<span className="required">*</span>
@@ -81,6 +110,8 @@ export default function Signup() {
                   id="fullname"
                   placeholder="Full name"
                   required
+                  onChange={handleInputChange}
+                  name="name"
                 />
               </div>
 
@@ -93,6 +124,8 @@ export default function Signup() {
                   id="email"
                   placeholder="Email Address"
                   required
+                  onChange={handleInputChange}
+                  name="email"
                 />
               </div>
 
@@ -106,6 +139,8 @@ export default function Signup() {
                     id="password"
                     placeholder="Password"
                     required
+                    onChange={handleInputChange}
+                    name="password"
                   />
                   <button
                     type="button"
@@ -127,6 +162,8 @@ export default function Signup() {
                     id="confirmPassword"
                     placeholder="Confirm Password"
                     required
+                    onChange={handleInputChange}
+                    name="confirmPassword"
                   />
                   <button
                     type="button"

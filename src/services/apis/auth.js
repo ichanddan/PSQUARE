@@ -11,4 +11,8 @@ export const AuthApi = {
     const api_call = axiosApi.post("/auth/login", data);
     return responseHandler(api_call, toast_success, toast_loading);
   },
+  Signup: (data, toast_success = false, toast_loading = false) => {
+    const api_call = axiosApi.post("/auth/register", data);
+    return responseHandler(api_call, toast_success, toast_loading);
+  },
 };
