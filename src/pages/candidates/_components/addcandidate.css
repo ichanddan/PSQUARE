@@ -74,6 +74,18 @@
   display: block; /* this makes margin auto work for centering */
   border-radius: 50px;
 }
+.save-btn-value {
+  width: 116px;
+  padding: 10px;
+  background: #4D007D;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin: 10px auto 0 auto;
+  display: block; /* this makes margin auto work for centering */
+  border-radius: 50px;
+}
 
 .ischeck {
   display: flex;
