@@ -5,11 +5,12 @@
  * Import it in component as API.Login()
  */
 
-import { AuthApi } from './apis/auth';
-import { Candidate } from './apis/candidate';
-
+import { AuthApi } from "./apis/auth";
+import { Candidate } from "./apis/candidate";
+import { Employee } from "./apis/employee";
 
 export const API = {
   ...AuthApi,
-  ...Candidate
+  ...Candidate,
+  ...Employee,
 };

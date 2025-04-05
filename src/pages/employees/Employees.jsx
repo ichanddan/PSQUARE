@@ -3,7 +3,7 @@ import Dashboard from "../../components/Dashboard";
 import { API } from "../../services";
 
 export default function Employees() {
-  const [candidates, setCandidate] = useState([]);
+  const [employs, setEmploys] = useState([]);
   const [positionFilter, setPositionFilter] = useState("");
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,10 +12,10 @@ export default function Employees() {
     setSearchTerm(e.target.value);
   };
 
-  const filteredCandidates = candidates.filter((candidate) => {
+  const filteredemploys = employs.filter((candidate) => {
     const matchesSearch =
       candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      candidate.position.toLowerCase().includes(searchTerm.toLowerCase())
+      candidate.position.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesPosition =
       !positionFilter ||
       candidate.position.toLowerCase() === positionFilter.toLowerCase();
@@ -24,9 +24,9 @@ export default function Employees() {
   });
 
   const getAllCandidate = async () => {
-    await API.getAll()
+    await API.getAllEmployee()
       .then((res) => {
-        setCandidate(res.data);
+        setEmploys(res.data);
       })
       .catch((e) => console.log(e));
   };
@@ -69,35 +69,34 @@ export default function Employees() {
         <table className="candidates-table">
           <thead>
             <tr>
-              <th>Sr no.</th>
-              <th>Candidates Name</th>
+              <th>Profile</th>
+              <th>Employee Name</th>
               <th>Email Address</th>
               <th>Phone Number</th>
               <th>Position</th>
-              <th>Status</th>
-              <th>Experience</th>
+              <th>Department</th>
+              <th>Date of Joining</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {filteredCandidates.map((candidate, index) => (
+            {filteredemploys.map((candidate) => (
               <tr key={candidate._id}>
-                <td>{index + 1}</td>
+                <td>
+                  <img
+                    src={candidate.profileUrl}
+                    width={40}
+                    height={40}
+                    alt="no"
+                    style={{ borderRadius: "50px" }}
+                  />
+                </td>
                 <td>{candidate.name}</td>
                 <td>{candidate.email}</td>
-                <td>{candidate.phone}</td>
+                <td>{candidate.number}</td>
                 <td>{candidate.position}</td>
-                <td>
-                  <div className="filter-dropdown">
-                    <select className="filter-select">
-                      <option value="Applied">Applied</option>
-                      <option value="Interviewing">Interviewing</option>
-                      <option value="Hired">Hired</option>
-                      <option value="Rejected">Rejected</option>
-                    </select>
-                  </div>
-                </td>
-                <td>{candidate.experience}</td>
+                <td>{candidate.department}</td>
+                <td>{candidate.date_of_joining}</td>
                 <td>
                   <button className="action-button">⋮</button>
                 </td>
