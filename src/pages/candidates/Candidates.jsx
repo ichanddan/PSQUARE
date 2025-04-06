@@ -3,6 +3,7 @@ import Dashboard from "../../components/Dashboard";
 import { API } from "../../services";
 import AddCandidateFormModal from "./_components/AddCandidate";
 import "./candidates.css";
+import ActionMenu from "./_components/CandidateAction";
 
 export default function Candidates() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -90,50 +91,51 @@ export default function Candidates() {
           </button>
         </div>
       </div>
-
-      <div className="table-container">
-        <table className="candidates-table">
-          <thead>
-            <tr>
-              <th>Sr no.</th>
-              <th>Candidates Name</th>
-              <th>Email Address</th>
-              <th>Phone Number</th>
-              <th>Position</th>
-              <th>Status</th>
-              <th>Experience</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredCandidates.map((candidate, index) => (
-              <tr key={candidate._id}>
-                <td>{index + 1}</td>
-                <td>{candidate.name}</td>
-                <td>{candidate.email}</td>
-                <td>{candidate.phone}</td>
-                <td>{candidate.position}</td>
-                <td>
-                  <div className="filter-dropdown">
-                    <select className="filter-select">
-                      <option value="Applied">Applied</option>
-                      <option value="Interviewing">Interviewing</option>
-                      <option value="Hired">Hired</option>
-                      <option value="Rejected">Rejected</option>
-                    </select>
-                  </div>
-                </td>
-                <td>{candidate.experience}</td>
-                <td>
-                  <button className="action-button">⋮</button>
-                </td>
+      <div className="leave-management-container">
+        <div className="table-container">
+          <table className="candidates-table">
+            <thead>
+              <tr>
+                <th>Sr no.</th>
+                <th>Candidates Name</th>
+                <th>Email Address</th>
+                <th>Phone Number</th>
+                <th>Position</th>
+                <th>Status</th>
+                <th>Experience</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        {isModalOpen && (
-          <AddCandidateFormModal onClose={() => setIsModalOpen(false)} />
-        )}
+            </thead>
+            <tbody>
+              {filteredCandidates.map((candidate, index) => (
+                <tr key={candidate._id}>
+                  <td>{index + 1}</td>
+                  <td>{candidate.name}</td>
+                  <td>{candidate.email}</td>
+                  <td>{candidate.phone}</td>
+                  <td>{candidate.position}</td>
+                  <td>
+                    <div className="filter-dropdown">
+                      <select className="filter-select">
+                        <option value="Applied">Applied</option>
+                        <option value="Interviewing">Interviewing</option>
+                        <option value="Hired">Hired</option>
+                        <option value="Rejected">Rejected</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td>{candidate.experience}</td>
+                  <td>
+                    <ActionMenu data={candidate} getAllCandidate={getAllCandidate} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {isModalOpen && (
+            <AddCandidateFormModal onClose={() => setIsModalOpen(false)} />
+          )}
+        </div>
       </div>
     </Dashboard>
   );

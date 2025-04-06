@@ -64,46 +64,47 @@ export default function Employees() {
           </div>
         </div>
       </div>
-
-      <div className="table-container">
-        <table className="candidates-table">
-          <thead>
-            <tr>
-              <th>Profile</th>
-              <th>Employee Name</th>
-              <th>Email Address</th>
-              <th>Phone Number</th>
-              <th>Position</th>
-              <th>Department</th>
-              <th>Date of Joining</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredemploys.map((candidate) => (
-              <tr key={candidate._id}>
-                <td>
-                  <img
-                    src={candidate.profileUrl}
-                    width={40}
-                    height={40}
-                    alt="no"
-                    style={{ borderRadius: "50px" }}
-                  />
-                </td>
-                <td>{candidate.name}</td>
-                <td>{candidate.email}</td>
-                <td>{candidate.number}</td>
-                <td>{candidate.position}</td>
-                <td>{candidate.department}</td>
-                <td>{candidate.date_of_joining}</td>
-                <td>
-                  <button className="action-button">⋮</button>
-                </td>
+      <div className="leave-management-container">
+        <div className="table-container">
+          <table className="candidates-table">
+            <thead>
+              <tr>
+                <th>Profile</th>
+                <th>Employee Name</th>
+                <th>Email Address</th>
+                <th>Phone Number</th>
+                <th>Position</th>
+                <th>Department</th>
+                <th>Date of Joining</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredemploys.map((candidate) => (
+                <tr key={candidate._id}>
+                  <td>
+                    <img
+                      src={candidate.profileUrl}
+                      width={40}
+                      height={40}
+                      alt="no"
+                      style={{ borderRadius: "50px" }}
+                    />
+                  </td>
+                  <td>{candidate.name}</td>
+                  <td>{candidate.email}</td>
+                  <td>{candidate.number}</td>
+                  <td>{candidate.position}</td>
+                  <td>{candidate.department}</td>
+                  <td>{candidate.date_of_joining}</td>
+                  <td>
+                    <button className="action-button">⋮</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </Dashboard>
   );

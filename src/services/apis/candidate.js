@@ -17,4 +17,8 @@ export const Candidate = {
     const api_call = axiosApi.get("/candidate/get-all");
     return responseHandler(api_call, toast_success, toast_loading);
   },
+  DeleteCandidate: ( id, toast_success = false, toast_loading = false) => {
+    const api_call = axiosApi.delete(`/candidate/delete/${id}`);
+    return responseHandler(api_call, toast_success, toast_loading);
+  },
 };

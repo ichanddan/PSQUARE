@@ -6,10 +6,10 @@ const Dashboard = ({ children }) => {
   return (
     <div className="dashboard-container">
       <Sidebar />
-      <main className="main-content1">
+      <div className="main-content1" style={{background:'white'}}>
         <Header />
         {children}
-      </main>
+      </div>
     </div>
   );
 };
