@@ -198,29 +198,29 @@ export default function Leaves() {
             <div className="loading-message">Loading...</div>
           ) : (
             filteredLeaves.map((leave) => (
-              <div key={leave._id} className="table-row">
+              <div key={leave?._id} className="table-row">
                 <div className="profile-col">
                   <img
-                    src={leave.employeeId.profileUrl || "/placeholder.svg"}
-                    alt={leave.employeeId.name}
+                    src={leave?.employeeId?.profileUrl || "/placeholder.svg"}
+                    alt={leave?.employeeId?.name}
                     className="profile-image"
                   />
                 </div>
                 <div className="name-col">
-                  <div className="employee-name">{leave.employeeId.name}</div>
-                  <div className="employee-title">{leave.designation}</div>
+                  <div className="employee-name">{leave?.employeeId?.name}</div>
+                  <div className="employee-title">{leave?.designation}</div>
                 </div>
                 <div className="date-col">
-                  {formatDateForDisplay(leave.leaveDate)}
+                  {formatDateForDisplay(leave?.leaveDate)}
                 </div>
-                <div className="reason-col">{leave.reason}</div>
+                <div className="reason-col">{leave?.reason}</div>
                 <div className="status-col">
                   <div className="dropdown-container">
                     <div
-                      className={`status-dropdown ${leave.status.toLowerCase()}`}
+                      className={`status-dropdown ${leave?.status.toLowerCase()}`}
                       onClick={(e) => {
                         e.stopPropagation();
-                        toggleDropdown(leave._id);
+                        toggleDropdown(leave?._id);
                       }}
                     >
                       <span>{leave.status}</span>
@@ -336,20 +336,20 @@ export default function Leaves() {
           </div>
           <div className="approved-leaves">
             <h3>Approved Leaves</h3>
-            {approvedLeaves.length > 0 ? (
+            {approvedLeaves?.length > 0 ? (
               approvedLeaves.map((leave) => (
                 <div key={leave._id} className="approved-leave-item">
                   <img
-                    src={leave.employeeId.profileUrl || "/placeholder.svg"}
-                    alt={leave.employeeId.name}
+                    src={leave?.employeeId?.profileUrl || "/placeholder.svg"}
+                    alt={leave?.employeeId?.name}
                     className="profile-image"
                   />
                   <div className="employee-info">
-                    <div className="employee-name">{leave.employeeId.name}</div>
-                    <div className="employee-title">{leave.designation}</div>
+                    <div className="employee-name">{leave?.employeeId?.name}</div>
+                    <div className="employee-title">{leave?.designation}</div>
                   </div>
                   <div className="leave-date">
-                    {formatDateForDisplay(leave.leaveDate)}
+                    {formatDateForDisplay(leave?.leaveDate)}
                   </div>
                 </div>
               ))
