@@ -8,21 +8,60 @@ import Candidates from "./pages/candidates/Candidates";
 import Employees from "./pages/employees/Employees";
 import Home from "./pages/home/home";
 import Leaves from "./pages/leaves/Leaves";
+import ProtectedRoute from "./components/ProtectedRoute"; // ⬅️ import it
 
 function App() {
   const NotFound = () => <h1>404 - Page Not Found</h1>;
 
   return (
     <Router>
-      <WithAutoLogout /> {/* Mounted AFTER Router is initialized */}
+      <WithAutoLogout />
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* Public routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/candidates" element={<Candidates />} />
-        <Route path="/employees" element={<Employees />} />
-        <Route path="/attendance" element={<Attendance />} />
-        <Route path="/leaves" element={<Leaves />} />
+
+        {/* Protected routes */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidates"
+          element={
+            <ProtectedRoute>
+              <Candidates />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employees"
+          element={
+            <ProtectedRoute>
+              <Employees />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/attendance"
+          element={
+            <ProtectedRoute>
+              <Attendance />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/leaves"
+          element={
+            <ProtectedRoute>
+              <Leaves />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster position="bottom-center" reverseOrder={false} />
@@ -30,7 +69,6 @@ function App() {
   );
 }
 
-// This ensures useNavigate() is called safely
 function WithAutoLogout() {
   useAutoLogout();
   return null;
