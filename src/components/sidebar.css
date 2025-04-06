@@ -54,8 +54,13 @@
 }
 
 .nav-item.active .nav-link {
-  color: #5a189a;
-  background-color: rgba(90, 24, 154, 0.1);
+  color: black;
+  background-color: #5a189a;
+  width: 20px;
+  height: 38px;
+  top: 382px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .nav-link {
