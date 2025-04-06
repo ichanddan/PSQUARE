@@ -17,8 +17,8 @@ export const Attendance = {
     const api_call = axiosApi.get("/attendance/get");
     return responseHandler(api_call, toast_success, toast_loading);
   },
-  UpdateLeave: (id, data, toast_success = false, toast_loading = false) => {
-    const api_call = axiosApi.put(`/leave/update-status/${id}`, data);
+  UpdateAttendance: (id, data, toast_success = false, toast_loading = false) => {
+    const api_call = axiosApi.put(`/attendance/update/${id}`, data);
     return responseHandler(api_call, toast_success, toast_loading);
   },
 };

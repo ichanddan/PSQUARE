@@ -5,6 +5,7 @@ import { API } from "../../services";
 export default function Attendance() {
   const [attendance, setAttendance] = useState([]);
   const [positionFilter, setPositionFilter] = useState("");
+  // const [attendance, setAttendance] = useState();
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -26,6 +27,16 @@ export default function Attendance() {
 
     return matchesSearch && matchesPosition;
   });
+  const handleUpdateStatus = async (id, e) => {
+    await API.UpdateAttendance(
+      id,
+      { attendance: e },
+      "Update success",
+      "updating.."
+    )
+      .then(() => getAllAttendance())
+      .catch((e) => console.log(e));
+  };
 
   const getAllAttendance = async () => {
     await API.getAllAttendance()
@@ -107,9 +118,10 @@ export default function Attendance() {
                     <select
                       className="filter-select"
                       value={candidate.attendance}
-                      // onChange={(e) => setStatusFilter(e.target.value)}
+                      onChange={(e) =>
+                        handleUpdateStatus(candidate._id, e.target.value)
+                      }
                     >
-                      <option value="">Status</option>
                       <option value="Absent">Absent</option>
                       <option value="Present">Present</option>
                     </select>
