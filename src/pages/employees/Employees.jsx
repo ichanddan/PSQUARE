@@ -23,7 +23,7 @@ export default function Employees() {
     return matchesSearch && matchesPosition;
   });
 
-  const getAllCandidate = async () => {
+  const getAllEmployee = async () => {
     await API.getAllEmployee()
       .then((res) => {
         setEmploys(res.data);
@@ -31,7 +31,7 @@ export default function Employees() {
       .catch((e) => console.log(e));
   };
   useEffect(() => {
-    getAllCandidate();
+    getAllEmployee();
   }, []);
 
   return (

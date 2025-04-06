@@ -8,9 +8,11 @@
 import { AuthApi } from "./apis/auth";
 import { Candidate } from "./apis/candidate";
 import { Employee } from "./apis/employee";
+import { Leave } from "./apis/leave";
 
 export const API = {
   ...AuthApi,
   ...Candidate,
   ...Employee,
+  ...Leave
 };
