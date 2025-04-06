@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Dashboard from "../../components/Dashboard";
 import { API } from "../../services";
+import EmployessAction from "./_components/EmployessAction";
 
 export default function Employees() {
   const [employs, setEmploys] = useState([]);
@@ -98,7 +99,7 @@ export default function Employees() {
                   <td>{candidate.department}</td>
                   <td>{candidate.date_of_joining}</td>
                   <td>
-                    <button className="action-button">⋮</button>
+                    <EmployessAction data={candidate} getAllCandidate={getAllEmployee} />
                   </td>
                 </tr>
               ))}
