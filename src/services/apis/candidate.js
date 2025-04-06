@@ -4,21 +4,30 @@
  * APIs related to Authentication
  */
 
-import { axiosApi, responseHandler } from "../core";
+import { axiosApi, getToken, responseHandler } from "../core";
 
 export const Candidate = {
-  Add: (data, toast_success = false, toast_loading = false) => {
+  Add:  async(data, toast_success = false, toast_loading = false) => {
+    const token = await getToken()
     const api_call = axiosApi.post("/candidate/add", data, {
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { "Content-Type": "multipart/form-data",Authorization: `Bearer ${token}` },
     });
     return responseHandler(api_call, toast_success, toast_loading);
   },
-  getAll: ( toast_success = false, toast_loading = false) => {
-    const api_call = axiosApi.get("/candidate/get-all");
+  getAll: async ( toast_success = false, toast_loading = false) => {
+    const token = await getToken()
+    const api_call = axiosApi.get("/candidate/get-all",{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return responseHandler(api_call, toast_success, toast_loading);
   },
-  DeleteCandidate: ( id, toast_success = false, toast_loading = false) => {
-    const api_call = axiosApi.delete(`/candidate/delete/${id}`);
+  DeleteCandidate: async ( id, toast_success = false, toast_loading = false) => {
+    const token = await getToken()
+    const api_call = axiosApi.delete(`/candidate/delete/${id}`,{headers: {
+      Authorization: `Bearer ${token}`,
+    },});
     return responseHandler(api_call, toast_success, toast_loading);
   },
 };

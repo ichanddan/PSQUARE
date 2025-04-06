@@ -9,9 +9,7 @@ const Dashboard = ({ children }) => {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const route = useNavigate();
   useEffect(() => {
-    if (isAuthenticated) {
-      route("/");
-    } else {
+    if (!isAuthenticated) {
       route("/login");
     }
   }, [isAuthenticated]);

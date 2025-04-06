@@ -4,21 +4,40 @@
  * APIs related to Authentication
  */
 
-import { axiosApi, responseHandler } from "../core";
+import { axiosApi, getToken, responseHandler } from "../core";
 
 export const Attendance = {
-  AddAttendance: (data, toast_success = false, toast_loading = false) => {
+  AddAttendance: async (data, toast_success = false, toast_loading = false) => {
+    const token = await getToken();
     const api_call = axiosApi.post("/attendance/add", data, {
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
     });
     return responseHandler(api_call, toast_success, toast_loading);
   },
-  getAllAttendance: (toast_success = false, toast_loading = false) => {
-    const api_call = axiosApi.get("/attendance/get");
+  getAllAttendance: async (toast_success = false, toast_loading = false) => {
+    const token = await getToken();
+    const api_call = axiosApi.get("/attendance/get", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return responseHandler(api_call, toast_success, toast_loading);
   },
-  UpdateAttendance: (id, data, toast_success = false, toast_loading = false) => {
-    const api_call = axiosApi.put(`/attendance/update/${id}`, data);
+  UpdateAttendance: async (
+    id,
+    data,
+    toast_success = false,
+    toast_loading = false
+  ) => {
+    const token = await getToken();
+    const api_call = axiosApi.put(`/attendance/update/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return responseHandler(api_call, toast_success, toast_loading);
   },
 };
