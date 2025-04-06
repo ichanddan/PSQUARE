@@ -1,17 +1,20 @@
-import "./dashboard.css";
 import Header from "./Header";
+import "./dashboard.css";
 import Sidebar from "./SideBar";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Dashboard = ({ children }) => {
-  // const { user, isAuthenticated } = useSelector((state) => state.auth);
-  // const route = useNavigate();
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     route("/");
-  //   } else {
-  //     route("/login");
-  //   }
-  // }, [isAuthenticated]);
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const route = useNavigate();
+  useEffect(() => {
+    if (isAuthenticated) {
+      route("/");
+    } else {
+      route("/login");
+    }
+  }, [isAuthenticated]);
   return (
     <div className="dashboard-container">
       <Sidebar />
