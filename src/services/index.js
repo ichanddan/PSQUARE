@@ -5,6 +5,7 @@
  * Import it in component as API.Login()
  */
 
+import { Attendance } from "./apis/attendance";
 import { AuthApi } from "./apis/auth";
 import { Candidate } from "./apis/candidate";
 import { Employee } from "./apis/employee";
@@ -14,5 +15,6 @@ export const API = {
   ...AuthApi,
   ...Candidate,
   ...Employee,
-  ...Leave
+  ...Leave,
+  ...Attendance
 };
